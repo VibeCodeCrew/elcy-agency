@@ -13,7 +13,7 @@ const AUTHOR_SCALE = 0.45;
 
 // ОТФИЛЬТРОВАННЫЕ ЦИТАТЫ (DIGITAL & BUSINESS)
 // === НАЧАЛО ВСТАВКИ: ЗАГРУЗКА ДАННЫХ ===
-const API_URL = 'http://localhost:3000/api/quotes'; // В проде заменишь на реальный домен
+const API_URL = '/api/quotes'; // В проде заменишь на реальный домен
 
 // Дефолтные цитаты на случай, если сервер упал
 const fallbackQuotes = [

@@ -8,12 +8,24 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const app = express();
-const PORT = 3000; // Порт, на котором висит бэкенд
+const PORT = process.env.PORT || 3000;
 const SECRET_KEY = process.env.JWT_SECRET || 'fallback_secret_key';
 
 // 1. РАЗРЕШАЕМ ДОСТУП (CORS)
 // Это нужно, чтобы твой фронтенд мог стучаться на сервер
 app.use(cors());
+// === ВСТАВКА: ОТДАЕМ ФРОНТЕНД ===
+// Указываем, что папка уровнем выше (где index.html) — это статика
+app.use(express.static(path.join(__dirname, '../')));
+
+// Любой запрос, который не API, отправляет index.html (для SPA)
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../index.html'));
+});
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, '../admin.html'));
+});
+// =================================
 app.use(bodyParser.json());
 
 // 2. ПУТИ К ФАЙЛАМ
