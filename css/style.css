@@ -1,0 +1,147 @@
+:root { --bg-color: #050505; --text-color: #e0e0e0; }
+
+.noise {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 9999; opacity: 0.07;
+    background: url('https://grainy-gradients.vercel.app/noise.svg');
+}
+
+.cursor-follower {
+    position: fixed; width: 20px; height: 20px; background: #fff;
+    border-radius: 50%; pointer-events: none; z-index: 10000;
+    mix-blend-mode: difference; transform: translate(-50%, -50%);
+    display: none;
+}
+@media (hover: hover) { .cursor-follower { display: block; } }
+
+body {
+    background-color: var(--bg-color); color: var(--text-color);
+    font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden;
+    cursor: default;
+}
+body.custom-cursor-active { cursor: none; }
+
+a { text-decoration: none; color: inherit; }
+button { border: none; outline: none; }
+
+h1, h2, h3 { font-family: 'Unbounded', sans-serif; text-transform: uppercase; font-weight: 700; margin: 0; }
+
+.wrapper { width: 100%; position: relative; z-index: 1; }
+.section { padding: 10vh 5vw; border-bottom: 1px solid rgba(255,255,255,0.1); position: relative; }
+
+/* НАВИГАЦИЯ */
+.nav-container {
+    position: fixed; top: 0; width: 100%; 
+    padding: 25px 5vw; 
+    display: flex; justify-content: space-between; 
+    mix-blend-mode: difference; z-index: 100; 
+    font-family: 'Unbounded', sans-serif; font-weight: 700;
+    box-sizing: border-box; 
+}
+
+/* HERO SECTION */
+.hero { 
+    height: 100vh; 
+    height: 100dvh; 
+    display: flex; flex-direction: column; 
+    justify-content: flex-end; padding-bottom: 8vh; 
+    overflow: hidden; position: relative;
+}
+
+.hero-bg-text {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 100%; text-align: center;
+    font-family: 'Unbounded', sans-serif; 
+    font-size: 25vw; line-height: 0.8; font-weight: 900;
+    color: #111; z-index: 0; pointer-events: none; user-select: none;
+    white-space: nowrap;
+}
+
+#grid-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.2; pointer-events: none; }
+#webgl-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: auto; }
+
+/* КНОПКИ (ДЕСКТОП) */
+.cleanup-btn-container {
+    position: absolute; 
+    bottom: 25vh; 
+    right: 5vw; 
+    z-index: 100;
+    display: grid; place-items: center;
+    left: auto;
+    transform: none;
+}
+.cleanup-btn {
+    grid-area: 1 / 1;
+    font-family: 'Unbounded', sans-serif; font-size: 14px; text-transform: uppercase;
+    background: rgba(0,0,0,0.6); color: #fff; border: 1px solid #fff;
+    padding: 15px 30px; cursor: pointer; transition: 0.3s; backdrop-filter: blur(5px);
+    pointer-events: auto; letter-spacing: 1px; white-space: nowrap;
+}
+.cleanup-btn:hover { background: #fff; color: #000; }
+
+#resetBtn { opacity: 0; pointer-events: none; transform: scale(0.9); }
+
+/* ПРЕЛОАДЕР */
+.preloader {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #000; z-index: 20000; display: flex;
+    justify-content: center; align-items: center; color: #fff;
+    font-size: 24px; font-family: 'Unbounded', sans-serif;
+    transition: transform 0.8s ease-in-out;
+}
+.preloader.hidden { transform: translateY(-100%); }
+
+/* УСЛУГИ */
+.services-grid { display: grid; grid-template-columns: 1fr; }
+.service-item { padding: 50px 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: baseline; transition: 0.3s; }
+.service-item:hover { padding-left: 20px; background: rgba(255,255,255,0.05); }
+.service-item h2 { font-size: 4vw; }
+.service-meta { font-family: 'Courier New', monospace; font-size: 14px; opacity: 0.5; width: 100px; }
+
+/* БЛОГ */
+.blog-item { display: grid; padding: 40px 0; border-bottom: 1px solid rgba(255,255,255,0.1); grid-template-columns: 1fr 3fr; gap: 20px; align-items: center; transition: 0.3s; }
+.blog-item:hover { opacity: 0.7; transform: translateX(10px); }
+.blog-date { font-family: 'Courier New', monospace; opacity: 0.6; }
+.blog-title { font-size: 1.5rem; font-weight: 500; font-family: 'Unbounded', sans-serif;}
+.blog-tag { font-family: 'Unbounded'; font-size: 12px; border: 1px solid #fff; padding: 5px 10px; display: inline-block; margin-top: 10px; }
+
+/* ГЛОССАРИЙ */
+.alphabet-nav { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 50px; }
+.alpha-link { font-family: 'Unbounded'; opacity: 0.5; cursor: pointer; }
+.alpha-link:hover, .alpha-link.active { opacity: 1; text-decoration: underline; }
+.glossary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.term-item { padding: 30px; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+.term-item:hover { background: rgba(255,255,255,0.05); }
+.term-title { font-family: 'Unbounded'; font-size: 1.2rem; margin-bottom: 15px; color: #fff; }
+.term-desc { font-size: 0.9rem; line-height: 1.6; opacity: 0.8; }
+
+/* СТАТЬЯ */
+.article-content { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; }
+.article-content p { margin-bottom: 30px; }
+.article-content h2 { margin-top: 60px; margin-bottom: 30px; font-size: 2rem; }
+
+/* ФУТЕР */
+.footer { padding: 10vh 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; color: #000; }
+.footer h2 { font-size: 8vw; text-align: center; margin-bottom: 20px; }
+.copyright { margin-top: 50px; font-size: 12px; font-family: 'Courier New', monospace; opacity: 0.6;}
+
+/* МОБИЛЬНАЯ ВЕРСИЯ */
+@media (max-width: 768px) {
+    h1 { font-size: 10vw; } 
+    
+    .nav-container { padding: 20px; font-size: 12px; }
+    .service-item h2 { font-size: 5vw; }
+    .blog-item { grid-template-columns: 1fr; gap: 10px; }
+    .glossary-grid { grid-template-columns: 1fr; }
+    .footer h2 { font-size: 9vw; } 
+    
+    .cleanup-btn-container { 
+        bottom: 30vh; 
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: max-content; 
+    }
+    
+    .hero-bg-text { font-size: 25vw; }
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELCY | SYSTEM CONTROL</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        /* Специфичные стили для админки */
+        .admin-wrapper { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
+        .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 20000; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .hidden { display: none !important; }
+        
+        input, textarea {
+            background: transparent; border: 1px solid #333; color: #fff;
+            padding: 15px; font-family: 'Courier New', monospace; width: 100%;
+            margin-bottom: 20px; outline: none; transition: 0.3s;
+        }
+        input:focus, textarea:focus { border-color: #fff; }
+        
+        .control-panel { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; margin-top: 60px; }
+        .data-list { border-left: 1px solid #333; padding-left: 20px; }
+        
+        .quote-item { border-bottom: 1px solid #222; padding: 20px 0; display: flex; justify-content: space-between; align-items: start; }
+        .quote-item:last-child { border-bottom: none; }
+        .quote-text { font-family: 'Unbounded'; font-size: 0.9rem; margin-bottom: 10px; }
+        .quote-author { font-family: 'Courier New'; opacity: 0.6; font-size: 0.8rem; }
+        
+        .btn-action { 
+            cursor: pointer; padding: 10px 20px; border: 1px solid #fff; 
+            background: transparent; color: #fff; font-family: 'Unbounded'; 
+            font-size: 0.8rem; transition: 0.3s;
+        }
+        .btn-action:hover { background: #fff; color: #000; }
+        .btn-delete { border-color: #ff3333; color: #ff3333; margin-left: 15px; }
+        .btn-delete:hover { background: #ff3333; color: #fff; }
+        
+        .status-bar { font-family: 'Courier New'; opacity: 0.5; margin-bottom: 20px; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+    <div class="noise"></div>
+    <div class="cursor-follower" id="cursor"></div>
+
+    <div id="login-screen" class="login-overlay">
+        <h2 style="margin-bottom: 30px;">ACCESS REQUIRED</h2>
+        
+        <input type="text" id="admin-login" placeholder="USERNAME" style="max-width: 300px; text-align: center; margin-bottom: 10px;">
+        <input type="password" id="admin-pass" placeholder="PASSWORD" style="max-width: 300px; text-align: center;">
+        
+        <button class="btn-action" id="login-btn">LOGIN TO SERVER</button>
+        <div id="login-error" style="color: red; font-family: 'Courier New'; margin-top: 20px; opacity: 0;">ACCESS DENIED</div>
+    </div>
+
+    <div id="dashboard" class="wrapper hidden">
+        <nav class="nav-container">
+            <div>ELCY CORE</div>
+            <div style="cursor: pointer;" id="logout-btn">LOGOUT</div>
+        </nav>
+
+        <section class="admin-wrapper">
+            <h1>DATA CONTROL</h1>
+            <div class="status-bar">CONNECTION: LOCALHOST:3000 // STATUS: ACTIVE</div>
+            
+            <div style="display: flex; gap: 20px;">
+                <button class="btn-action" id="save-server" style="background: #fff; color: #000;">SYNC TO SERVER</button>
+            </div>
+
+            <div class="control-panel">
+                <div>
+                    <h3 style="margin-bottom: 30px;">ADD NEW</h3>
+                    <textarea id="inp-text" rows="4" placeholder="QUOTE TEXT"></textarea>
+                    <input type="text" id="inp-author" placeholder="AUTHOR NAME">
+                    <button class="btn-action" id="add-btn" style="width: 100%;">APPEND DATA</button>
+                </div>
+
+                <div class="data-list">
+                    <h3 style="margin-bottom: 30px;">CURRENT STACK (<span id="count-display">0</span>)</h3>
+                    <div id="list-container">
+                        </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="js/global.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
